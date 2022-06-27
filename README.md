@@ -70,10 +70,13 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - available from the provider component downward
   - do not require to pass the information down (prop drilling)
   - useful to handle state that is shared across a whole section of the application (or all of it)
+  - only the components that use the context get re-rendered
 - lifting up local state
   - keeps the state local where it's consumed
   - easy to track down
   - may cause prop drilling
+- external libraries
+  - framework agnostic (advantage or disadvantage?)
 
 ## State management Patterns / Libraries
 - Redux
@@ -94,7 +97,7 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - Jotai
   - simplified version of recoil (4x smaller)
   - does not work with React Fast Refresh as atoms do not have a key
-  - does not have shapshots (useful for testing and for inspecting)
+  - does not have snapshots (useful for testing and for inspecting)
   - stable persistent state apis
   - [interesting article](https://blog.logrocket.com/jotai-vs-recoil-what-are-the-differences/?msclkid=20b0f121cf7d11ec91d6c54ab8622513) on the difference between Jotai and Recoil
 - Zustand
@@ -102,6 +105,9 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - centralized
 - Valtio
   - uses proxies
+  - state can be changed directly (anti-pattern?)
+  - comes with eslint plugin
+  - logic works outsie of react (can be used inside or outside)
 - apollo client
   - graphQL
   - auto caching
@@ -117,18 +123,17 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - spread operators
   - ugly APIs
 
-Problem:
+## Problems:
+### local-state-editor
 - long list of item
 - info about each item is editable
 - info about each item is displayed somewhere else in the tree
 - info needs to be hoisted up to common ancestor
 - the whole tree gets re-rendered upon updating 1 item since the common ancestor re-renders
 - can't use a context provider each item as the length my vary and there's no way to insert a new context provider avoiding unmount and remount of the whole tree
-Problem:
-- undo functionality /// versioning
-Note
-- Remix, no sms needed as useLoadData takes care of it ???
 
+### undo:
+- undo functionality /// versioning
 
 ## Practical App
 ### Recoil
@@ -136,8 +141,14 @@ Note
 - __useRecoilState__: creates a local state (with useState), passes the setter to the atom (who's passed in as parameter to the hook) and handles the cleanup on unmount.
 - it should work with async batching
 - the complexity grows on the number of subscribers of each shared state
-- no boilerplate
+- no boilerplate (just a provider to put on top of the tree)
 - shared state is not global
+
+### Jotai
+- virtually identical to Recoil
+- no provider (vs the `<RecoilRoot>`)
+- type returned by the `atom` function it's dirty and hard to reuse
+- smaller footprint than Recoil
 
 ### Redux Toolkit
 - setup store
@@ -157,3 +168,7 @@ Note
 - global and/or local state
 - only who's observing the actual value gets rerendered
 - requires some insight on how the library work (not immediate to use)
+
+
+## sNotes // open questions
+- Remix, no sms needed as useLoadData takes care of it ???
