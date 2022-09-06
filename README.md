@@ -178,5 +178,11 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - having big stores will either make you use a lot of spread operators or something like `Immer!` to update the state when accessing nested fields
 - has some Redux vibes but without boilerplates
 
+## Valtio
+- very little code to write (no dispatchers needed to change the state)
+- feels dangerous to use (direct side effects on data changes)
+- remember to change the state, not the snapshot
+- not very good performances (comparable to redux) when avoiding rerendering
+
 ## sNotes // open questions
 - Remix, no sms needed as useLoadData takes care of it ???
