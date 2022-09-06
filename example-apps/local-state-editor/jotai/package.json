@@ -1,7 +1,7 @@
 {
-  "name": "react",
+  "name": "jotai",
   "version": "1.0.0",
-  "description": "Local State Editor using pure React",
+  "description": "Local State Editor using jotai",
   "main": "src/index.js",
   "scripts": {
     "start": "parcel src/index.html --port 1238"

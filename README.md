@@ -122,6 +122,8 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - headless table state management
   - spread operators
   - ugly APIs
+- xState ??
+- RxJS
 
 ## Problems:
 ### local-state-editor
@@ -169,6 +171,12 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - only who's observing the actual value gets rerendered
 - requires some insight on how the library work (not immediate to use)
 
+### Zustand
+- little if no boilerplate (only the stores definition)
+- can work with small store entities (easy to split the stores)
+- deep selector to avoid unnecessary rerenders
+- having big stores will either make you use a lot of spread operators or something like `Immer!` to update the state when accessing nested fields
+- has some Redux vibes but without boilerplates
 
 ## sNotes // open questions
 - Remix, no sms needed as useLoadData takes care of it ???
