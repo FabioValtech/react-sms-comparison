@@ -118,12 +118,11 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - 0 config
   - consistant request states out of the box (pending, data, error)
   - async / promise friendly
-- React Table
-  - headless table state management
-  - spread operators
-  - ugly APIs
-- xState ??
 - RxJS
+  - boilerplate
+  - agnostic
+  - streams as state
+  - lots of theory
 
 ## Problems:
 ### local-state-editor
@@ -185,4 +184,4 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - not very good performances (comparable to redux) when avoiding rerendering
 
 ## sNotes // open questions
-- Remix, no sms needed as useLoadData takes care of it ???
+- Remix, no sms needed as useLoadData takes care of it ??? - Remiy useLoadData takes care of server-state, for local applications you still want to manage shared state somehow.
