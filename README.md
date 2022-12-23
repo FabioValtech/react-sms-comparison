@@ -123,6 +123,19 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - agnostic
   - streams as state
   - lots of theory
+- Rematch
+  - redux implementation
+  - boilerplate to the minimum
+  - very small footprint
+  - complex typings (require use of `as` for complex types)
+  - opening the typings crashed the intellisense (ts 4.8.x)
+- Hookstate
+  - getters and setters, Java vibe
+  - names of fields in the states could conflict with apis (ex. `myState.value` needs to be accessed as `myState.nested.value.get()`)
+  - state structure is very easy to follow and short to write
+  - proxy magic but more explicit
+- ~~Akita~~ Elf
+
 
 ## Problems:
 ### local-state-editor
@@ -182,6 +195,12 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - feels dangerous to use (direct side effects on data changes)
 - remember to change the state, not the snapshot
 - not very good performances (comparable to redux) when avoiding rerendering
+
+## Hookstate
+- nested state changes of an array item do not prevent the rest of the items components to be re-rendered.
+- no boilerplate
+- can't avoid unnecessary rerenders
+- state can be arbitrarily composed
 
 ## sNotes // open questions
 - Remix, no sms needed as useLoadData takes care of it ??? - Remiy useLoadData takes care of server-state, for local applications you still want to manage shared state somehow.
