@@ -135,6 +135,13 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
   - state structure is very easy to follow and short to write
   - proxy magic but more explicit
 - ~~Akita~~ Elf
+  - rxjs
+  - entity-based stores
+  - multiple independent stores
+  - comes with a cli
+  - boilerplate
+  - database (CRM) - like operations out of the box
+  - unopinionated
 
 
 ## Problems:
@@ -201,6 +208,14 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 - no boilerplate
 - can't avoid unnecessary rerenders
 - state can be arbitrarily composed
+
+## ~~Akita~~ Elf
+- minimal boilerplate
+- no use-effects complexity (operations are declared in the repository and are as simple as calling a function)
+- rxjs requires some decent understanding
+- to avoid unnecessary re-renders specific operators can be piped; they'll be called every time an update occurs but will not emit a value. This is more performant then reselect as it happens on the specific Observable execution context instead of during reconciliation.
+- using class repositories might be an anti-pattern
+- handy entity-based operators
 
 ## sNotes // open questions
 - Remix, no sms needed as useLoadData takes care of it ??? - Remiy useLoadData takes care of server-state, for local applications you still want to manage shared state somehow.
