@@ -156,6 +156,18 @@ State can reside on the _server_ (CRUD applications) on in the _client_ (Web Edi
 ### undo:
 - undo functionality /// versioning
 
+### hydration
+- randomize some number in a structured object on BE
+- SSR
+- hydrate the state in the FE
+- use the hydrated state
+
+### multi-tab sync
+
+### product explorer
+
+### creation wizard
+
 ## Practical App
 ### Recoil
 - __atom__: store that mantains a list of subscribers (setter on local React values). Every time one of the setState is called, each other is as well.

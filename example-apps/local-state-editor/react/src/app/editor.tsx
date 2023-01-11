@@ -1,11 +1,15 @@
 import * as React from "react";
-import { useSquareContext } from './editor-state';
+import { Item } from './editor-state';
 import { Square } from './square';
 
 export function Editor({
-    itemIds
+    itemIds,
+    itemMap,
+    updateItem,
 }: {
-    itemIds: string[],
+    itemIds: string[];
+    itemMap: Record<string, Item>;
+    updateItem: (item: Item) => void;
 }) {
 
     return (
@@ -13,7 +17,7 @@ export function Editor({
             position: 'relative',
         }}>
             {itemIds.map(id => (
-                <Square id={id} key={id} />
+                <Square item={itemMap[id]} key={id} updateItem={updateItem} />
             ))}
         </div>
     );

@@ -1,10 +1,20 @@
 import * as React from "react";
 import { DebugPanel } from './debug-panel';
 import { Editor } from './editor';
-import { useSquareContext } from './editor-state';
+import { Item } from './editor-state';
 
 export function Layout() {
-    const { itemIds } = useSquareContext();
+    const [itemIds, setItemIds] = React.useState<string[]>([]);
+    const [itemMap, setItemMap] = React.useState<Record<string, Item>>({});
+
+    const updateItem = React.useCallback((item: Item) => {
+        setItemMap((old) => ({ ...old, [item.id]: item }));
+    }, [setItemMap]);
+
+    const addItem = React.useCallback((item: Item) => {
+        setItemIds((old) => [...old, item.id]);;
+        updateItem(item);
+    }, [setItemIds, updateItem]);
 
     return (
         <div style={{
@@ -17,12 +27,12 @@ export function Layout() {
                 height: '100%',
                 backgroundColor: '#cacaca',
             }}>
-                <DebugPanel />
+                <DebugPanel addItem={addItem} itemIds={itemIds} itemMap={itemMap} />
             </div>
             <div style={{
                 flexGrow: 1
             }}>
-                <Editor itemIds={itemIds} />
+                <Editor itemIds={itemIds} itemMap={itemMap} updateItem={updateItem} />
             </div>
             <div style={{
                 flexBasis: '300px',

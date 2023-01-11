@@ -1,13 +1,16 @@
 import * as React from "react";
-import { useSquareContext } from './editor-state';
+import { Item } from './editor-state';
 
-export function Square({ id }: { id: string }) {
+function SquareComponent({
+    item,
+    updateItem,
+}: {
+    item: Item;
+    updateItem: (item: Item) => void;
+}) {
     const [isDown, setIsDown] = React.useState(false);
     const [offsetX, setOffsetX] = React.useState(0);
     const [offsetY, setOffsetY] = React.useState(0);
-    const context = useSquareContext();
-
-    const item = context.item(id);
 
     function handleMouseMove(e: React.MouseEvent) {
         if (!isDown) {
@@ -17,7 +20,7 @@ export function Square({ id }: { id: string }) {
         const x = e.clientX;
         const y = e.clientY;
 
-        context.updateItem({
+        updateItem({
             ...item,
             x: Math.round(x - (parent?.left || 0) - offsetX),
             y: Math.round(y - (parent?.top || 0) - offsetY),
@@ -29,10 +32,6 @@ export function Square({ id }: { id: string }) {
         setOffsetX(e.clientX - self.left);
         setOffsetY(e.clientY - self.top);
         setIsDown(true);
-    }
-
-    if (!item) {
-        return <>item with id '{id}'' does not exists</>
     }
 
     return (
@@ -54,3 +53,5 @@ export function Square({ id }: { id: string }) {
         />
     );
 }
+
+export const Square = React.memo(SquareComponent);
