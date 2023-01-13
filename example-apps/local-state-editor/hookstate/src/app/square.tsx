@@ -2,10 +2,12 @@ import { ImmutableObject, State, useHookstate } from "@hookstate/core";
 import * as React from "react";
 import { Item } from './editor-state';
 
-export function Square({ task }: { task: State<ImmutableObject<Item>, {}> }) {
+export function Square(props: { square: State<ImmutableObject<Item>, {}> }) {
     const [isDown, setIsDown] = React.useState(false);
     const [offsetX, setOffsetX] = React.useState(0);
     const [offsetY, setOffsetY] = React.useState(0);
+
+    const square = useHookstate(props.square);
 
     function handleMouseMove(e: React.MouseEvent) {
         if (!isDown) {
@@ -15,7 +17,7 @@ export function Square({ task }: { task: State<ImmutableObject<Item>, {}> }) {
         const x = e.clientX;
         const y = e.clientY;
 
-        task.set(it => ({
+        square.set(it => ({
             ...it,
             x: Math.round(x - (parent?.left || 0) - offsetX),
             y: Math.round(y - (parent?.top || 0) - offsetY),
@@ -30,7 +32,7 @@ export function Square({ task }: { task: State<ImmutableObject<Item>, {}> }) {
         e.stopPropagation();
     }
 
-    if (!task.get()) {
+    if (!square.get()) {
         return <>item does not exists</>
     }
 
@@ -41,9 +43,9 @@ export function Square({ task }: { task: State<ImmutableObject<Item>, {}> }) {
             onMouseUp={() => setIsDown(false)}
             onMouseMove={handleMouseMove}
             style={{
-                backgroundColor: task.background.get(),
-                top: task.y.get(),
-                left: task.x.get(),
+                backgroundColor: square.background.get(),
+                top: square.y.get(),
+                left: square.x.get(),
                 width: 50,
                 height: 50,
                 position: 'absolute',

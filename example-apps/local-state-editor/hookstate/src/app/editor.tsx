@@ -6,14 +6,15 @@ import { Square } from './square';
 export function Editor({
 }: {
 }) {
-    const tasks = useHookstate(itemsState);
+    console.log('editor rerendered');
+    const squares = useHookstate(itemsState);
 
     return (
         <div style={{
             position: 'relative',
         }}>
-            {tasks.map((task, index) => (
-                <Square task={task} key={task.id.get()} />
+            {squares.map((square, index) => (
+                <Square square={square} key={index} />
             ))}
         </div>
     );
